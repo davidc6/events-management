@@ -56,8 +56,8 @@ const mountEventsRoutes =
       ) => {
         // TODO: Add body validation
         try {
-          await controller.create(req.body)
-          res.status(201)
+          const response = await controller.create(req.body)
+          res.status(201).json(response)
         } catch (e) {
           e.status = 400
           next(e)

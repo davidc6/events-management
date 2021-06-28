@@ -6,3 +6,16 @@
 - Set up data store
 - Define raw data types
 - Error messages
+
+## Setting up tables
+
+// Create event table
+```sql
+CREATE TABLE event (
+  id serial PRIMARY KEY,
+  name VARCHAR ( 50 ) NOT NULL,
+  description VARCHAR ( 200 ) NOT NULL,
+  created_on TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  date DATE NOT NULL
+);
+```

@@ -1,10 +1,12 @@
 import { Event, RawData } from "./types"
+import format from "date-fns/format"
 
 export const toJSON = (data: RawData): Event => {
   return {
     id: data.id,
     name: data.name,
-    date: data.date,
+    description: data.description,
+    date: format(new Date(data.date), "dd-MM-yyyy"),
   }
 }
 

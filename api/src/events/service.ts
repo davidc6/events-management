@@ -2,24 +2,38 @@ import { Event, RawData } from "./types"
 import { DbType } from "../db/db"
 
 export type EventsServiceType = {
-  getAllEvents: () => Promise<RawData[]>
+  getAllEvents: () => any
   getEventById: (id: string) => Promise<RawData>
   createEvent: (data: Event) => void
 }
 
 export const EventsService = (db: DbType) => {
-  const getAllEvents = async (): Promise<RawData[]> => {
-    return await db.getAll()
+  const getAllEvents = async () => {
+    // TODO: swap 5 with a param
+    const result = await db.query(
+      "SELECT * FROM event LIMIT 5"
+    )
+    return result.rows
   }
 
-  const getEventById = async (
-    id: string
-  ): Promise<RawData> => {
-    return await db.getById(id)
+  const getEventById = async (id: string) => {
+    const result = await db.query(
+      "SELECT * FROM event WHERE id = $1",
+      [id]
+    )
+    return result.rows[0]
   }
 
   const createEvent = async (data: any): Promise<void> => {
-    return await db.create(data)
+    const q = `INSERT INTO event (name, description, date) VALUES ($1, $2, $3)`
+
+    const result = await db.query(q, [
+      data.name,
+      data.description,
+      data.date,
+    ])
+
+    return result.rows[0]
   }
 
   return {

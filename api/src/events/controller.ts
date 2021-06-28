@@ -23,10 +23,10 @@ export const EventsController = (ctx: EventsCTX) => {
     }
   }
 
-  const create = (data: Event) => {
+  const create = async (data: Event) => {
     // TODO: validate data
     const newEvent = model.toJSON(data)
-    service.createEvent(newEvent)
+    await service.createEvent(newEvent)
 
     return {}
   }
