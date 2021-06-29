@@ -18,6 +18,14 @@ To access the api - `http://localhost:3000`
 
 # What can be done different
 
-- Use Nest.js for API
-- Redis to cache data in memory
-- Potentially could add a queue (RabbitMQ etc) to improve reliability of the application should one of the components go down (out of service)
+- SPA
+  - Make responsive
+  - Validation for input fields
+  - Better design
+  - Break monolith App.js into small components and unit test each one separately
+
+- API
+  - Use Nest.js for API
+  - Redis to cache data in memory
+  - Potentially could add a queue (RabbitMQ etc) to improve reliability of the application should one of the components go down (out of service)
+  - API client specifically for the local API

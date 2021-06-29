@@ -3,7 +3,7 @@ import format from "date-fns/format"
 
 export const toJSON = (data: RawData): Event => {
   return {
-    id: data.id,
+    id: String(data.id),
     name: data.name,
     description: data.description,
     date: format(new Date(data.date), "dd-MM-yyyy"),
