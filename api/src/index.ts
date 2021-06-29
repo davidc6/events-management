@@ -11,11 +11,11 @@ const app = express()
 mountMiddleware(app)
 
 // DB | TODO: Swap for proper db setup
-const controller = buildCtx(setupDb({ config: "123" }))
+const controller = buildCtx(setupDb())
 
 // Mount routes
-mountMainRoutes(controller.forMain())(app)
-mountEventsRoutes(controller.forEvents())(app)
+mountMainRoutes(app)
+mountEventsRoutes(app)(controller.forEvents())
 
 // Global error handling
 app.use(errorHandler)

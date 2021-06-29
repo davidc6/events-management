@@ -2,16 +2,21 @@ import { Event, RawData } from "./types"
 import { DbType } from "../db/db"
 
 export type EventsServiceType = {
-  getAllEvents: () => any
+  getAllEvents: (params: { limit: string }) => any
   getEventById: (id: string) => Promise<RawData>
   createEvent: (data: Event) => void
 }
 
 export const EventsService = (db: DbType) => {
-  const getAllEvents = async () => {
+  const getAllEvents = async ({
+    limit,
+  }: {
+    limit: string
+  }) => {
     // TODO: swap 5 with a param
     const result = await db.query(
-      "SELECT * FROM event LIMIT 5"
+      "SELECT * FROM event LIMIT $1",
+      [limit]
     )
     return result.rows
   }

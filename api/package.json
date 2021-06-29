@@ -10,6 +10,7 @@
 		"dev": "nodemon src/server/init.ts",
 		"lint": "eslint src",
 		"start": "node dist/server/init.js",
+		"tsc": "node_modules/.bin/tsc",
 		"test": "mocha test/**/*.ts --exit"
 	},
 	"author": "David C (https://github.com/davidc6)",
@@ -38,6 +39,7 @@
 		"dotenv": "^10.0.0",
 		"express": "^4.17.1",
 		"helmet": "^4.6.0",
-		"pg": "^8.6.0"
+		"pg": "^8.6.0",
+		"validate.js": "^0.13.1"
 	}
 }

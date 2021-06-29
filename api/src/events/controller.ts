@@ -1,11 +1,16 @@
 import { Event } from "./types"
 import { EventsCTX } from "./context"
+import { Query } from "express-serve-static-core"
+import { getLimit, getId } from "../utils/qs"
 
 export const EventsController = (ctx: EventsCTX) => {
   const { service, model } = ctx
 
-  const getAll = async () => {
-    const rawEvents = await service.getAllEvents()
+  const getAll = async (query: Query) => {
+    const limit = getLimit(query)
+    const rawEvents = await service.getAllEvents({
+      limit,
+    })
     const events = model.listAllEvents(rawEvents)
 
     return {
@@ -14,8 +19,8 @@ export const EventsController = (ctx: EventsCTX) => {
   }
 
   const getById = async (id: string) => {
-    // TODO: validate id
-    const rawEvent = await service.getEventById(id)
+    const eventId = getId(id)
+    const rawEvent = await service.getEventById(eventId)
     const event = model.toJSON(rawEvent)
 
     return {
@@ -24,7 +29,7 @@ export const EventsController = (ctx: EventsCTX) => {
   }
 
   const create = async (data: Event) => {
-    // TODO: validate data
+    // TODO: sanitize & validate data
     const newEvent = model.toJSON(data)
     await service.createEvent(newEvent)
 

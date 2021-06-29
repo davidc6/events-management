@@ -8,8 +8,8 @@ import { Event } from "./types"
 import { Controller } from "../types"
 
 const mountEventsRoutes =
-  (controller: Controller<Event>) =>
-  (app: Application): void => {
+  (app: Application) =>
+  (controller: Controller<Event>): void => {
     app.get(
       "/events",
       async (
@@ -18,7 +18,9 @@ const mountEventsRoutes =
         next: NextFunction
       ) => {
         try {
-          const response = await controller.getAll()
+          const response = await controller.getAll(
+            req.query
+          )
           res.status(200).json(response)
         } catch (e) {
           e.status = 400
@@ -35,7 +37,6 @@ const mountEventsRoutes =
         next: NextFunction
       ) => {
         try {
-          // TODO: id validation
           const response = await controller.getById(
             req.params.id
           )
