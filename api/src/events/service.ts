@@ -4,7 +4,11 @@ import { DbType } from "../db/db"
 export type EventsServiceType = {
   getAllEvents: (params: { limit: string }) => any
   getEventById: (id: string) => Promise<RawData>
-  createEvent: (data: Event) => void
+  createEvent: (data: {
+    name: string
+    description: string
+    date: string
+  }) => void
 }
 
 export const EventsService = (db: DbType) => {
@@ -15,7 +19,7 @@ export const EventsService = (db: DbType) => {
   }) => {
     // TODO: swap 5 with a param
     const result = await db.query(
-      "SELECT * FROM event LIMIT $1",
+      "SELECT * FROM event ORDER BY date DESC LIMIT $1 ",
       [limit]
     )
     return result.rows

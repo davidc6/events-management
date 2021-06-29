@@ -7,9 +7,10 @@ function App() {
   const [eventsById, setEventsById] = useState([])
   const [activeEvent, setActiveEvent] = useState(null)
   const [isDialogOpen, setDialogOpen] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
   
   useEffect(() => {
-    fetch('http://localhost:5000/events')
+    fetch('http://localhost:5000/events?limit=100')
       .then(data => data.json())
       .then(data => {
         const eventsMap = {}
@@ -17,11 +18,10 @@ function App() {
           eventsMap[event.id] = event
           return event.id
         })
-        
         setEvents(eventsMap)
         setEventsById(eventsById)
       })
-  }, [])
+  }, [isSaving])
     
   const handleBodyClick = (e) => {    
     const { tagName, dataset } = e.target
@@ -59,7 +59,24 @@ function App() {
   }
   
   const handleSave = (values) => {  
-    handleOnAdd()  
+    handleOnAdd()
+    setIsSaving(true)  
+      
+    fetch('http://localhost:5000/events', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    })
+    .then(response => response.json())
+    .then(data => {
+      setIsSaving(false)  
+      
+    })
+    .catch((error) => {
+      setIsSaving(false)  
+    });
   }
 
   const renderAddButton = () => {
