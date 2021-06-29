@@ -1,21 +1,22 @@
-// TODO: This is just dummy data for testing that needs to be swapped for a data storage
-import fixture from "./dataset.json"
+import { Pool, QueryResult } from "pg"
 
-const fix = [...fixture.data]
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  query_timeout: 3000,
+})
 
-// TODO: Update anys
 export type DbType = {
-  getAll: () => any
-  getById: (id: string) => any
-  create: (data: any) => void
+  query: (
+    q: string,
+    params?: string[]
+  ) => Promise<QueryResult>
 }
 
-export const setupDb = (config: any) => {
+export const setupDb = () => {
   return {
-    query: (q: string) => console.log(q),
-    getAll: () => fix,
-    getById: (id: string) =>
-      fix.find((obj: any) => obj.id == id),
-    create: (data: any) => fix.push(data),
+    query: (
+      q: string,
+      params?: string[]
+    ): Promise<QueryResult> => pool.query(q, params),
   }
 }

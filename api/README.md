@@ -7,6 +7,11 @@
 - Define raw data types
 - Error messages
 
+## Structure
+
+- `/src/db` - database setup
+- `/src/index.ts` - app setup
+
 ## Setting up tables
 
 // Create event table
