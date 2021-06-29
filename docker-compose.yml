@@ -20,6 +20,16 @@ services:
     environment:
       - NODE_ENV=development
     ports:
-      - 3000:3000
+      - 5000:5000
     volumes:
       - ./api/:/workspace/api
+  spa:
+    container_name: events-spa
+    restart: always
+    build: ./spa
+    environment:
+      - NODE_ENV=development
+    ports:
+      - 3000:3000
+    volumes:
+      - ./spa/:/workspace/spa

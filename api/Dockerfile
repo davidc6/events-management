@@ -5,6 +5,6 @@ RUN mkdir -p /workspace/api
 WORKDIR /workspace/api
 COPY . .
 RUN npm install
-EXPOSE 3000
+EXPOSE 5000
 # Using this script we can build according to the environment
 ENTRYPOINT [ "./cmd.sh" ]

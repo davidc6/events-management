@@ -4,7 +4,7 @@ import { normalizePort, onListen, onError } from "./utils"
 
 const init = () => {
   try {
-    const PORT = normalizePort(process.env.PORT || "3000")
+    const PORT = normalizePort(process.env.PORT || "5000")
 
     const server = http.createServer(app)
     server.listen(PORT)
