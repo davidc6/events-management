@@ -6,10 +6,10 @@ To run it locally, you need to have Docker installed on your machine and then:
 docker-compose up --detach
 ```
 
-This will command will bring up the necessary environment.
+This will command will bring up the necessary environment. The you can use links below to a
 
-To access API - `http://localhost:5000`
-To access SPA - `http://localhost:3000`
+- To see API - `http://localhost:5000`
+- To see SPA - `http://localhost:3000`
 
 ## To do
 
@@ -17,13 +17,7 @@ To access SPA - `http://localhost:3000`
 - POST request body validation
 - Update `any` types to strict types
 
-# What can be done different
+# What can be improved
 
-- API
-  - Use Nest.js for API
-  - Redis to cache data in memory
-  - Potentially could add a queue (RabbitMQ etc) to improve reliability of the application should one of the components go down (out of service)
-  - API client specifically for the local API
-
-- Docker
+- Docker / docker composer
   - Create a workspace, so that one can log in into it and start / stop services independently

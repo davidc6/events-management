@@ -24,3 +24,12 @@ CREATE TABLE event (
   date DATE NOT NULL
 );
 ```
+
+## What can be improved
+
+- Redis to cache data in memory
+- Potentially could add a queue (RabbitMQ etc) to improve reliability of the application should one of the components go down (out of service)
+- API client specifically for the local API
+- Secure the endpoint (rate limiting, api keys / cert)
+- Use a different framework (Nest.js for API)
+- Split domain logic into `/src/domain/..`

@@ -1,6 +1,6 @@
 # SPA
 
-## What can be done different
+## What can be improved
 
 - Make responsive
 - Validation for input fields
@@ -9,3 +9,4 @@
 - Error logging (client side telemetry)
 - Handle error states (e.g. "Could not save event")
 - Extract save event functionality into a React hook so that it can be reused
+- Read in environment variable for API url
