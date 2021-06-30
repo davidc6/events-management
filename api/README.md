@@ -8,13 +8,11 @@
 - Mocha is used as test runner since it's intuitive, user friendly, fast and customisable
 - Posgresql is used since there bound to be relationships between events, various types of events, users creating these events which can be broken down into separate database tables
 
-## To do
+## Potential improvements
 
+- Add integration tests that store / retrieve data from a test database
 - Remove `any`s (convert into proper contracts or swap for `unknown`s)
 - Standardise response error messages
-
-## What can be improved
-
 - Add a reverse proxy (e.e. Nginx) in front of the API to improve security and potentially act as a load balancer
 - Scale Node.js application to run on multiple cores (i.e. cluster mode)
 - Add OpenAPI spec validator to validate routes and data types, and provide a UI for the API

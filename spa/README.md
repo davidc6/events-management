@@ -7,9 +7,9 @@
 - Material UI to make dialog / model creation process less painful
 - Jest and React testing library to test the components as they work great together
 
-## What can be improved
+## Potential improvements
 
-- Add more / finish off unit tests
+- Add / finish off unit tests for each component
 - Add state management if the application grows in complexity
 - Add [React Query](https://react-query.tanstack.com/) for caching and fetching data
 - Make the app responsive and mobile friendly

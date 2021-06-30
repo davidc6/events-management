@@ -3,14 +3,6 @@ import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import App from './';
 
-describe('<Heading />', () => {
-  test('gets rendered', () => {
-    render(<App />);
-    const headingElement = screen.getByText(/Events Management/i);
-    expect(headingElement).toBeInTheDocument();
-  })
-})
-
 describe('<App />', () => {
   const server = setupServer(
     rest.get('http://localhost:5000/events', (req, res, ctx) => {
@@ -28,7 +20,14 @@ describe('<App />', () => {
   afterEach(() => server.resetHandlers())
   afterAll(() => server.close())
   
-  test('renders the list', async () => {
+  test('renders the header', () => {
+    render(<App />)
+
+    const headingElement = screen.getByText(/Events Management/i)
+    expect(headingElement).toBeInTheDocument()
+  })
+  
+  test('renders the list from fetched data', async () => {
     render(<App />)
     
     await waitFor(() => screen.getByRole('list'))
@@ -39,7 +38,7 @@ describe('<App />', () => {
     expect(list.children).toHaveLength(3)
   })
   
-  test('expands a list item and provides a description', async () => {
+  test('expands a list item on click and provides a description', async () => {
     render(<App />)
     
     await waitFor(() => screen.getByRole('list'))
@@ -52,7 +51,7 @@ describe('<App />', () => {
     expect(desc).toBeInTheDocument()
   })
   
-  test('opens a modal', async () => {
+  test('opens a modal on button click', async () => {
     render(<App />)
 
     const addBtn = screen.getByRole('button')
