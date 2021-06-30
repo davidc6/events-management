@@ -19,6 +19,7 @@ services:
       - db
     environment:
       - NODE_ENV=development
+      - DATABASE_URL=postgres://user:example@events-db:5432/events
     ports:
       - 5000:5000
     volumes:
