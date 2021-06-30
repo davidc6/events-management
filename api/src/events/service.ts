@@ -17,9 +17,8 @@ export const EventsService = (db: DbType) => {
   }: {
     limit: string
   }) => {
-    // TODO: swap 5 with a param
     const result = await db.query(
-      "SELECT * FROM event ORDER BY date DESC LIMIT $1 ",
+      "SELECT * FROM event ORDER BY date DESC LIMIT $1",
       [limit]
     )
     return result.rows
@@ -30,11 +29,13 @@ export const EventsService = (db: DbType) => {
       "SELECT * FROM event WHERE id = $1",
       [id]
     )
+
     return result.rows[0]
   }
 
   const createEvent = async (data: any): Promise<void> => {
-    const q = `INSERT INTO event (name, description, date) VALUES ($1, $2, $3)`
+    const q =
+      "INSERT INTO event (name, description, date) VALUES ($1, $2, $3)"
 
     const result = await db.query(q, [
       data.name,

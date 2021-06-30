@@ -1,9 +1,12 @@
 import http from "http"
-import app from "../index"
 import { normalizePort, onListen, onError } from "./utils"
+import createApp from "../index"
+import { setupDb } from "../db/db"
 
 const init = () => {
   try {
+    const db = setupDb()
+    const app = createApp(db)
     const PORT = normalizePort(process.env.PORT || "5000")
 
     const server = http.createServer(app)

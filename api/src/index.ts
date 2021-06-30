@@ -1,23 +1,25 @@
-import express from "express"
+import express, { Application } from "express"
 import { errorHandler } from "./middleware/error"
 import { mountMiddleware } from "./middleware"
-import { setupDb } from "./db/db"
 import { buildCtx } from "./events/context"
 import { mountMainRoutes } from "./main/routes"
 import { mountEventsRoutes } from "./events/routes"
+import { DbType } from "./db/db"
 
-// App
-const app = express()
-mountMiddleware(app)
+export default (db: DbType): Application => {
+  // App
+  const app = express()
+  mountMiddleware(app)
 
-// DB | TODO: Swap for proper db setup
-const controller = buildCtx(setupDb())
+  // DB | TODO: Swap for proper db setup
+  const controller = buildCtx(db)
 
-// Mount routes
-mountMainRoutes(app)
-mountEventsRoutes(app)(controller.forEvents())
+  // Mount routes
+  mountMainRoutes(app)
+  mountEventsRoutes(app)(controller.forEvents())
 
-// Global error handling
-app.use(errorHandler)
+  // Global error handling
+  app.use(errorHandler)
 
-export default app
+  return app
+}
