@@ -1,10 +1,17 @@
 # SPA
 
+## Tech choices
+
+- Create-react-app to save time on manual webpack setup
+- JavaScript (instead of TypeScript) for quick iterations
+- Material UI to make dialog / model creation process less painful
+- Jest and React testing library to test the components as they work great together
+
 ## What can be improved
 
-- Add tests
+- Add more / finish off unit tests
 - Add state management if the application grows in complexity
-- Add React Query for caching and fetching data
+- Add [React Query](https://react-query.tanstack.com/) for caching and fetching data
 - Make the app responsive and mobile friendly
 - Add client side validation for input fields (add new event)
 - Error logging (client side telemetry)
