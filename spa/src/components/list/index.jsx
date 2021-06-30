@@ -1,7 +1,7 @@
 import { Fragment } from "react"
 import "./list.css"
 
-export const List = ({ eventIds, events, activeEventId }) => {
+export const List = ({ eventIds, events, activeEventId = '' }) => {
   const renderDesc = (id) => {
     return (
       <div className="App-li-desc">
@@ -12,11 +12,11 @@ export const List = ({ eventIds, events, activeEventId }) => {
   }
   
   const shouldRender = () => {
-    if (eventIds.length) return true
+    if (eventIds && eventIds.length) return true
     return false
   }
   
-  if (shouldRender()) {    
+  if (shouldRender()) {
     return (
       <ul className="App-ul">
       {
