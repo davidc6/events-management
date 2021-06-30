@@ -11,18 +11,27 @@ export const List = ({ eventIds, events, activeEventId }) => {
     )
   }
   
-  return (
-    <ul className="App-ul">
-    {
-      eventIds.map((id) => {
-        return (
-          <Fragment key={id}>
-            <li key={id} className="App-li" data-id={id}>{events[id].name}</li>
-            {activeEventId === id ? renderDesc(id) : ''}
-          </Fragment>
-        )
-      })
-    }
-  </ul>
-  )
+  const shouldRender = () => {
+    if (eventIds.length) return true
+    return false
+  }
+  
+  if (shouldRender()) {    
+    return (
+      <ul className="App-ul">
+      {
+        eventIds.map((id) => {
+          return (
+            <Fragment key={id}>
+              <li key={id} className="App-li" data-id={id}>{events[id].name}</li>
+              {activeEventId === id ? renderDesc(id) : ''}
+            </Fragment>
+          )
+        })
+      }
+    </ul>
+    )
+  }
+  
+  return null
 }
