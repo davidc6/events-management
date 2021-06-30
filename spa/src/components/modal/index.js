@@ -30,7 +30,6 @@ export default function FormDialog({ open, handleClose, handleSubmit }) {
   
   const onDateChange = (val) => {
     if (val === 'Invalid Date') return
-    console.log(val);
     setFormValues({
       ...formValues,
       date: new Date(val).toJSON()

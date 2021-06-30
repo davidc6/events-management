@@ -24,13 +24,11 @@ function App() {
             eventsMap[event.id] = event
             return event.id
           })
-          
+
           setEvents(eventsMap)
           setEventsById(eventsById)
         }
       })
-
-    return () => { setEvents({}) }
   }, [isSaving])
     
   const handleClick = (e) => {    

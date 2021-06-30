@@ -23,3 +23,4 @@
 - Validate data that comes from clients
 - Use a different framework (Nest.js for API) rather than custom express structure
 - Split domain logic into `/src/domain/..`
+- Logging and telemetry
