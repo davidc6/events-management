@@ -1,0 +1,24 @@
+.App-ul {
+	list-style: none;
+	padding: 0;
+}
+
+.App-li:first-child {
+	border-top: 2px solid white;
+}
+
+.App-li {
+	color: white;
+	border-bottom: 2px solid white;
+	padding: 8px;
+}
+
+.App-li-desc {
+	background-color: #626c80;
+	border-bottom: 2px solid white;
+	padding: 8px;
+}
+
+.App-li-desc p {
+	margin: 0;
+}

@@ -1,56 +1,47 @@
-import { useEffect, useState, Fragment } from 'react'
+import { useEffect, useState } from 'react'
 import FormDialog from './components/modal';
+import { Header } from './components/header';
+import { Button } from './components/button';
+import { List } from './components/list';
 import './App.css';
+
+const API_URL = 'http://localhost:5000'
 
 function App() {
   const [events, setEvents] = useState([])
   const [eventsById, setEventsById] = useState([])
-  const [activeEvent, setActiveEvent] = useState(null)
+  const [activeEventId, setActiveEventId] = useState(null)
   const [isDialogOpen, setDialogOpen] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
-  
+
   useEffect(() => {
-    fetch('http://localhost:5000/events?limit=100')
+    fetch(`${API_URL}/events?limit=100`)
       .then(data => data.json())
       .then(data => {
-        const eventsMap = {}
-        const eventsById = data.data.map(event => {
-          eventsMap[event.id] = event
-          return event.id
-        })
-        setEvents(eventsMap)
-        setEventsById(eventsById)
+        if (data.data) {          
+          const eventsMap = {}
+          const eventsById = data.data.map(event => {
+            eventsMap[event.id] = event
+            return event.id
+          })
+  
+          setEvents(eventsMap)
+          setEventsById(eventsById)
+        }
       })
   }, [isSaving])
     
-  const handleBodyClick = (e) => {    
+  const handleClick = (e) => {    
     const { tagName, dataset } = e.target
-        
+
     if (tagName === 'LI' && dataset && dataset.id) {
-      return setActiveEvent(dataset.id)
+      return setActiveEventId(dataset.id)
     }
 
-    setActiveEvent('0')    
+    setActiveEventId('0')    
   }
   
-  const renderHeader = () => {
-    return (
-      <header className="App-header">
-        <p>Event Management</p>
-      </header>
-    )
-  }
-  
-  const renderDesc = (id) => {
-    return (
-      <div className="App-li-desc">
-        <p>Description: {events[id].description}</p>
-        <p>Date: {events[id].date}</p>
-      </div>
-    )
-  }
-  
-  const handleOnAdd = () => {
+  const handleFormBtnClick = () => {
     if (isDialogOpen === true) {
       return setDialogOpen(false)
     }
@@ -58,52 +49,35 @@ function App() {
     setDialogOpen(true)
   }
   
-  const handleSave = (values) => {  
-    handleOnAdd()
+  const handleFormSaveBtnClick = (values) => {  
+    handleFormBtnClick()
     setIsSaving(true)  
       
-    fetch('http://localhost:5000/events', {
+    fetch(`${API_URL}/events`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(values),
     })
-    .then(response => response.json())
+    .then(res => res.json())
     .then(data => {
-      setIsSaving(false)  
-      
+      setIsSaving(false)
     })
     .catch((error) => {
-      setIsSaving(false)  
+      console.log(error)
+      setIsSaving(false)
     });
-  }
-
-  const renderAddButton = () => {
-    return (
-      <button onClick={handleOnAdd} className="App-btn-add">Add New</button>
-    )
   }
   
   return (
-    <div className="App" onClick={handleBodyClick}>
-      {renderHeader()}
+    <div className="App" onClick={handleClick}>
+      <Header />
       <div className="App-body">
-        {renderAddButton()}
-        <ul className="App-ul">
-          {
-            eventsById.map((id) => {
-              return (
-                <Fragment key={id}>
-                  <li key={id} className="App-li" data-id={id}>{events[id].name}</li>
-                  {activeEvent === id ? renderDesc(id) : ''}
-                </Fragment>
-              )
-            })
-          }
-        </ul>
+        <Button onClick={handleFormBtnClick} />
+        <List eventIds={eventsById} events={events} activeEventId={activeEventId} />
       </div>
-      <FormDialog open={isDialogOpen} handleClose={handleOnAdd} handleSubmit={handleSave} />
+      <FormDialog open={isDialogOpen} handleClose={handleFormBtnClick} handleSubmit={handleFormSaveBtnClick} />
     </div>
   );
 }
