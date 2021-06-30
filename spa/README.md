@@ -5,10 +5,11 @@
 - Create-react-app to save time on manual webpack setup
 - JavaScript (instead of TypeScript) for quick iterations
 - Material UI to make dialog / model creation process less painful
-- Jest and React testing library to test the components as they work great together
+- Jest and React testing library to test the components as the two integrate well together work great together
 
 ## Potential improvements
 
+- Add TypeScript and potentially share types between the API and SPA
 - Add / finish off unit tests for each component
 - Add state management if the application grows in complexity
 - Add [React Query](https://react-query.tanstack.com/) for caching and fetching data
