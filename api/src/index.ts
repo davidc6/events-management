@@ -7,18 +7,15 @@ import { mountEventsRoutes } from "./events/routes"
 import { DbType } from "./db/db"
 
 export default (db: DbType): Application => {
-  // App
   const app = express()
   mountMiddleware(app)
 
-  // DB | TODO: Swap for proper db setup
   const controller = buildCtx(db)
 
-  // Mount routes
   mountMainRoutes(app)
   mountEventsRoutes(app)(controller.forEvents())
 
-  // Global error handling
+  // Global error handler
   app.use(errorHandler)
 
   return app
