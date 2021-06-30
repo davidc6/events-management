@@ -8,6 +8,8 @@
 
 ## What can be improved
 
+- Add a reverse proxy in front of the API
+- Scale Node.js application to run on multiple cores
 - Add OpenAPI spec validator to validate routes and data types, and provide a UI for the API
 - Redis to cache data in memory
 - Potentially could add a queue (RabbitMQ etc) to improve reliability of the application should one of the components go down (out of service)
