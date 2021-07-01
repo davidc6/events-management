@@ -2,7 +2,7 @@
 
 This is a simple events management application that demonstrates interactions between a SPA (single page application) and API backend. The project is currently work in progress.
 
-To run it locally, you need to have [Docker / Docker Compose](https://docs.docker.com/compose/install/) installed on your machine. Once you have installed it, run the command:
+To run it locally, please install all `package.json` dependencies locally first by going into `/spa` and `/api` and running `npm i` commands. You will also need to have [Docker / Docker Compose](https://docs.docker.com/compose/install/) installed on your machine. Once you have installed it, run the command:
 
 ```sh
 docker-compose up --detach
@@ -32,4 +32,5 @@ There is also documentation for each:
 # What can be improved
 
 - Docker / docker composer
+  - Add a command / script to install node_modules locally when running `docker-compose up`
   - Create a workspace, so that one can log in into it and start / stop services independently rather than
