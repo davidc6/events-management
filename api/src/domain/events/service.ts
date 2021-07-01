@@ -1,5 +1,5 @@
-import { Event, RawData } from "./types"
-import { DbType } from "../db/db"
+import { RawData } from "./types"
+import { DbType } from "../../db/db"
 
 export type EventsServiceType = {
   getAllEvents: (params: { limit: string }) => any

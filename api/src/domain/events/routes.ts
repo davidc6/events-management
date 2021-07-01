@@ -5,7 +5,7 @@ import {
   Response,
 } from "express"
 import { Event } from "./types"
-import { Controller } from "../types"
+import { Controller } from "../../types"
 
 const mountEventsRoutes =
   (app: Application) =>

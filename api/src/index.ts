@@ -1,9 +1,9 @@
 import express, { Application } from "express"
 import { errorHandler } from "./middleware/error"
 import { mountMiddleware } from "./middleware"
-import { buildCtx } from "./events/context"
-import { mountMainRoutes } from "./main/routes"
-import { mountEventsRoutes } from "./events/routes"
+import { buildCtx } from "./domain/events/context"
+import { mountMainRoutes } from "./domain/main/routes"
+import { mountEventsRoutes } from "./domain/events/routes"
 import { DbType } from "./db/db"
 
 export default (db: DbType): Application => {

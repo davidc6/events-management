@@ -1,7 +1,7 @@
 import { Event } from "./types"
 import { EventsCTX } from "./context"
 import { Query } from "express-serve-static-core"
-import { getLimit, getId } from "../utils/qs"
+import { getLimit, getId } from "../../utils/qs"
 
 export const EventsController = (ctx: EventsCTX) => {
   const { service, model } = ctx
