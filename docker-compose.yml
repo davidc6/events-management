@@ -24,6 +24,7 @@ services:
       - 5000:5000
     volumes:
       - ./api/:/workspace/api
+      - /workspace/api/node_modules
   spa:
     container_name: events-spa
     restart: always
@@ -34,3 +35,4 @@ services:
       - 3000:3000
     volumes:
       - ./spa/:/workspace/spa
+      - /workspace/spa/node_modules

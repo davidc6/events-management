@@ -2,7 +2,7 @@
 
 This is a simple events management application that demonstrates interactions between a SPA (single page application) and API backend. The project is currently work in progress.
 
-To run it locally, please install all `package.json` dependencies locally first by going into `/spa` and `/api` and running `npm i` commands. You will also need to have [Docker / Docker Compose](https://docs.docker.com/compose/install/) installed on your machine. Once you have installed it, run the command:
+You will need to have [Docker / Docker Compose](https://docs.docker.com/compose/install/) installed on your machine. Once you have installed it, run the command:
 
 ```sh
 docker-compose up --detach
@@ -13,6 +13,8 @@ To bring the environment down (this will remove any data added to the database) 
 ```sh
 docker-compose down
 ```
+
+If this does not work please install all `package.json` dependencies locally first by going into `/spa` and `/api` and running `npm i` commands. This should resolve any `node_modules` dependencies.
 
 This will command will bring up the environment. You can then use links below to access both the SPA and API.
 
