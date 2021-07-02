@@ -11,7 +11,7 @@ import { DbType } from "../../db/db"
 export type EventsCTX = {
   service: EventsServiceType
   model: typeof EventsModel
-  logger: typeof Logger
+  logger?: typeof Logger
 }
 
 export const buildCtx = (db: DbType) => {

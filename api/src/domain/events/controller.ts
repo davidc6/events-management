@@ -6,7 +6,7 @@ import { getLimit, getId } from "../../utils/qs"
 export const EventsController = (ctx: EventsCTX) => {
   const { service, model } = ctx
 
-  const getAll = async (query: Query) => {
+  const getAll = async (query?: Query) => {
     const limit = getLimit(query)
     const rawEvents = await service.getAllEvents({
       limit,

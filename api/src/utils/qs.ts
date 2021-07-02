@@ -1,9 +1,9 @@
 import { Query } from "express-serve-static-core"
 import validate from "validate.js"
 
-export const getLimit = (qs: Query): string => {
+export const getLimit = (qs: Query | undefined): string => {
   const defaultLimit = "5"
-  if (qs.limit && typeof qs.limit === "string") {
+  if (qs && qs.limit && typeof qs.limit === "string") {
     const n = parseInt(qs.limit, 10)
 
     return validate.isNumber(n) && n >= 0
