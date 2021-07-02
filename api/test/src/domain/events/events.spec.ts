@@ -42,15 +42,13 @@ describe("EventsController", () => {
       ).to.deep.equal({ limit: "1" })
     })
 
-    it("returns transformed / modelled response by removing not needed data", async () => {
-      const getAllEventsOneItemStub = sinon
+    it("returns transformed response", async () => {
+      getAllEventsStub = sinon
         .stub()
         .resolves([rawEvents[0]])
-      const modifiedCtx = {
-        ...ctx,
-        service: { getAllEvents: getAllEventsOneItemStub },
-      }
-      const controller = EventsController(modifiedCtx)
+      ctx.service.getAllEvents = getAllEventsStub
+
+      const controller = EventsController(ctx)
       const res = await controller.getAll()
 
       expect(res).to.deep.equal({
