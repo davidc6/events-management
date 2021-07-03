@@ -1,10 +1,12 @@
 import { Event } from "./types"
-import { EventsCTX } from "./context"
+import { eventsContext } from "./context"
 import { Query } from "express-serve-static-core"
 import { getLimit, getId } from "../../utils/qs"
 import { validateBody } from "../../utils/body"
 
-export const EventsController = (ctx: EventsCTX) => {
+export const EventsController = (
+  ctx: ReturnType<typeof eventsContext>
+) => {
   const { service, model } = ctx
 
   const getAll = async (query?: Query) => {

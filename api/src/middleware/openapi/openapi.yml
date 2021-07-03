@@ -5,13 +5,13 @@ info:
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
-  version: 0.1.0
+  version: 0.2.0
 servers:
   - url: localhost:5000
 paths:
   /:
     get:
-      summary: Return available resources
+      summary: Return a list of available resources
       responses:
         '200':
           description: OK
@@ -42,6 +42,11 @@ paths:
       responses:
         '201':
           description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+              description: Relative url of the newly created event
         '400':
           $ref: '#/components/responses/BadRequest'
   /events/{eventId}:

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import FormDialog from '../modal';
 import { Header } from '../header';
 import { Button } from '../button';
@@ -13,22 +13,29 @@ function App() {
   const [activeEventId, setActiveEventId] = useState(null)
   const [isDialogOpen, setDialogOpen] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
+  const mountedRef = useRef(false)
 
   useEffect(() => {
-    fetch(`${API_URL}/events?limit=100`)
-      .then(data => data.json())
-      .then(data => {        
-        if (data.data) {          
-          const eventsMap = {}
-          const eventsById = data.data.map(event => {
-            eventsMap[event.id] = event
-            return event.id
-          })
+    mountedRef.current = true
 
-          setEvents(eventsMap)
-          setEventsById(eventsById)
-        }
-      })
+      fetch(`${API_URL}/events?limit=100`)
+        .then(data => data.json())
+        .then(data => {
+          if (data.data) {
+            const eventsMap = {}
+            const eventsById = data.data.map(event => {
+              eventsMap[event.id] = event
+              return event.id
+            })
+
+            if (mountedRef.current) {
+              setEvents(eventsMap)
+              setEventsById(eventsById)
+            }
+          }
+        })
+
+    return () => mountedRef.current = false
   }, [isSaving])
     
   const handleClick = (e) => {    
@@ -60,13 +67,12 @@ function App() {
       },
       body: JSON.stringify(values),
     })
-    .then(res => res.json())
-    .then(data => {
+    .then(res => {
       setIsSaving(false)
     })
     .catch((error) => {
-      console.log(error)
       setIsSaving(false)
+      console.error(error)
     });
   }
   

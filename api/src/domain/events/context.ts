@@ -1,26 +1,29 @@
 import Logger from "../../logger/logger"
-import {
-  EventsService,
-  EventsServiceType,
-} from "../events/service"
+import { EventsService } from "../events/service"
 import EventsModel from "../events/model"
 import { EventsController } from "../events/controller"
 import { MainController } from "../../domain/main/controller"
-import { DbType } from "../../db/db"
+import { setupDb } from "../../db/db"
 
-export type EventsCTX = {
-  service: EventsServiceType
-  model: typeof EventsModel
-  logger?: typeof Logger
+export const eventsContext = (
+  db: ReturnType<typeof setupDb>
+) => ({
+  service: EventsService(db),
+  model: EventsModel,
+  logger: Logger,
+})
+
+const buildEventsController = (
+  db: ReturnType<typeof setupDb>
+) => {
+  return EventsController(eventsContext(db))
 }
 
-export const buildCtx = (db: DbType) => {
+export const buildCtx = (
+  db: ReturnType<typeof setupDb>
+) => {
   const forEvents = () => {
-    return EventsController({
-      service: EventsService(db),
-      model: EventsModel,
-      logger: Logger,
-    })
+    return buildEventsController(db)
   }
 
   const forMain = () => {

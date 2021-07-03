@@ -33,7 +33,7 @@ describe('<App />', () => {
     await waitFor(() => screen.getByRole('list'))
 
     const list = screen.getByRole('list')
-    
+
     expect(list).toBeInTheDocument()
     expect(list.children).toHaveLength(3)
   })
