@@ -25,9 +25,9 @@ describe("qs util", () => {
       expect(res).to.equal("1")
     })
 
-    it("throws if invalid id is passed in", () => {
+    it("throws error if invalid id is passed in", () => {
       try {
-        const res = getId(["1"] as any) // for testing purposes only
+        getId(["1"] as any) // for testing purposes only
       } catch (e) {
         expect(e.message).to.equal(
           "You must provide a valid event id"

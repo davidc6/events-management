@@ -1,18 +1,19 @@
 {
 	"name": "events-api",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Event management API",
 	"main": "index.js",
 	"engines": {
 		"node": ">=14.17.0"
 	},
 	"scripts": {
-		"build": "npm run clean && tsc",
+		"build": "npm run clean && tsc && npm run copy:openapidoc",
 		"check:prettier": "prettier --check 'src/index.ts'",
 		"clean": "rm -rf dist",
+		"copy:openapidoc": "cp src/middleware/openapi/openapi.yml dist/src/middleware/openapi/",
 		"dev": "nodemon src/server/init.ts",
 		"lint": "eslint src",
-		"start": "node dist/server/init.js",
+		"start": "node dist/src/server/init.js",
 		"tsc": "node_modules/.bin/tsc",
 		"test": "mocha"
 	},
@@ -41,6 +42,7 @@
 		"eslint": "^7.29.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-prettier": "^3.4.0",
+		"express-openapi-validator": "^4.12.14",
 		"mocha": "^9.0.1",
 		"nodemon": "^2.0.7",
 		"prettier": "^2.3.1",

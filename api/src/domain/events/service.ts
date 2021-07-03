@@ -1,14 +1,10 @@
-import { RawData } from "./types"
+import { RawData, Event } from "./types"
 import { DbType } from "../../db/db"
 
 export type EventsServiceType = {
-  getAllEvents: (params: { limit: string }) => any
+  getAllEvents: (params: { limit: string }) => Promise<any>
   getEventById: (id: string) => Promise<RawData>
-  createEvent: (data: {
-    name: string
-    description: string
-    date: string
-  }) => void
+  createEvent: (data: Event) => Promise<any>
 }
 
 export const EventsService = (db: DbType) => {
@@ -33,9 +29,9 @@ export const EventsService = (db: DbType) => {
     return result.rows[0]
   }
 
-  const createEvent = async (data: any): Promise<void> => {
+  const createEvent = async (data: any) => {
     const q =
-      "INSERT INTO event (name, description, date) VALUES ($1, $2, $3)"
+      "INSERT INTO event (name, description, date) VALUES ($1, $2, $3) RETURNING id"
 
     const result = await db.query(q, [
       data.name,

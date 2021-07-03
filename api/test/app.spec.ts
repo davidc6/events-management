@@ -50,17 +50,17 @@ describe("App integration", () => {
     const data = { name: 'Event two', description: 'This is second event', date: '2020-04-21T00:05:04.600Z' }
 
     it("returns 201", async () => {
-      setUp([])
+      setUp([ { id: 1 } ])
       await request(app)
         .post("/events")
         .send(data)
         .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
+        .expect('Location', /\/events\/1/)
         .expect(201)
     })
     
     it("dispatches valid SQL", async () => {
-      setUp([])
+      setUp([ { id: 1 } ])
       await request(app)
         .post("/events")
         .send(data)
@@ -71,7 +71,7 @@ describe("App integration", () => {
         .to
         .deep
         .equal([
-          'INSERT INTO event (name, description, date) VALUES ($1, $2, $3)',
+          'INSERT INTO event (name, description, date) VALUES ($1, $2, $3) RETURNING id',
           [ 'Event two', 'This is second event', '2020-04-21T00:05:04.600Z' ]
         ])
     })

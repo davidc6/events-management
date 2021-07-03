@@ -24,3 +24,5 @@
 - Use a different framework (Nest.js for API) rather than custom express structure
 - Split domain logic into `/src/domain/..`
 - Logging and telemetry
+- ID generation (leave to database to generate / generate separately)
+- Add SSL to db connection config when in production
