@@ -4,9 +4,11 @@ import { mountMiddleware } from "./middleware"
 import { buildCtx } from "./domain/events/context"
 import { mountMainRoutes } from "./domain/main/routes"
 import { mountEventsRoutes } from "./domain/events/routes"
-import { DbType } from "./db/db"
+import { setupDb } from "./db/db"
 
-export default (db: DbType): Application => {
+export default (
+  db: ReturnType<typeof setupDb>
+): Application => {
   const app = express()
   mountMiddleware(app)
 

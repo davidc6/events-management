@@ -1,0 +1,148 @@
+openapi: 3.0.3
+info:
+  title: Events API
+  description: An API for events management
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: 0.2.0
+servers:
+  - url: localhost:5000
+paths:
+  /:
+    get:
+      summary: Return a list of available resources
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Root'
+  /api-docs:
+    get:
+      summary: Return a list of available resources
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: string  
+  /api-docs/{file}:
+    get:
+      summary: Return a assets
+      responses:
+        '200':
+          description: OK
+  /events:
+    get:
+      summary: Return a list of events
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Events'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    post:
+      summary: Add a new event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostEvent'
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+              description: Relative url of the newly created event
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /events/{eventId}:
+    get:
+      summary: Returns a single event
+      parameters:
+        - in: path
+          name: eventId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the event to get
+      responses:
+        '200':
+          $ref: '#/components/responses/Event'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+components:
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Event:
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/Event'
+  schemas:
+    Root:
+      type: object
+    PostEvent:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+      required:
+        - name
+        - description
+        - date
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+      required:
+        - id
+        - name
+        - description
+        - date
+    Events:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+          required:
+            - message

@@ -38,11 +38,17 @@ export default function FormDialog({ open, handleClose, handleSubmit }) {
   
   const handleAdd = () => {
     handleSubmit(formValues)
+    setFormValues({ name: '', description: '', date: new Date('2014-08-18T21:11:54')  })
   }
   
+  const onClose = () => {
+    handleClose()
+    setFormValues({ name: '', description: '', date: new Date('2014-08-18T21:11:54')  })
+  }
+
   return (
     <div>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add new event</DialogTitle>
         <DialogContent>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -79,7 +85,7 @@ export default function FormDialog({ open, handleClose, handleSubmit }) {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={onClose} color="primary">
             Cancel
           </Button>
           <Button type="submit" onClick={handleAdd} color="primary">
