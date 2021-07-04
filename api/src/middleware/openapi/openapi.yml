@@ -19,6 +19,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Root'
+  /api-docs:
+    get:
+      summary: Return a list of available resources
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: string  
+  /api-docs/{file}:
+    get:
+      summary: Return a assets
+      responses:
+        '200':
+          description: OK
   /events:
     get:
       summary: Return a list of events
@@ -61,11 +77,7 @@ paths:
           description: Numeric ID of the event to get
       responses:
         '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/Event'
+          $ref: '#/components/responses/Event'
         '400':
           $ref: '#/components/responses/BadRequest'
 components:
@@ -122,6 +134,8 @@ components:
       properties:
         data:
           type: array
+          items:
+            $ref: '#/components/schemas/Event'
     Error:
       type: object
       properties:
