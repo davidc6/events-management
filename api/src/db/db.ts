@@ -35,7 +35,7 @@ export const setupDb = () => {
       const values: any[] = []
 
       let i = 1
-      for (const [key, value] of data.entries()) {
+      for (const [key, value] of Object.entries(data)) {
         columns.push(key)
         params.push(`$${i}`)
         values.push(value)
@@ -47,8 +47,7 @@ export const setupDb = () => {
       )}) VALUES (${params.join(", ")}) RETURNING id`
 
       const result = await query(q, values)
-
-      return result.rows[0].id
+      return result.rows[0]
     },
   }
 }
