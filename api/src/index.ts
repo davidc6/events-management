@@ -6,10 +6,9 @@ import { mountMainRoutes } from "./domain/main/routes"
 import { mountEventsRoutes } from "./domain/events/routes"
 import { setupDb } from "./db/db"
 
-export default (
-  db: ReturnType<typeof setupDb>
-): Application => {
+export default (db: any): Application => {
   const app = express()
+
   mountMiddleware(app)
 
   const controller = buildCtx(db)

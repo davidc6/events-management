@@ -1,47 +1,26 @@
 import { Event } from "./types"
-import { setupDb } from "../../db/db"
 
-export type EventsServiceType = {
-  getAllEvents: (params: { limit: string }) => Promise<any>
-  getEventById: (id: string) => Promise<any>
-  createEvent: (data: Event) => Promise<any>
-}
+const TABLE = "event"
 
-export const EventsService = (
-  db: ReturnType<typeof setupDb>
-) => {
+export const EventsService = (db: any) => {
   const getAllEvents = async ({
     limit,
   }: {
     limit: string
   }) => {
-    const result = await db.query(
-      "SELECT * FROM event ORDER BY date DESC LIMIT $1",
-      [limit]
-    )
-    return result.rows
+    const result = await db.getAll(TABLE, limit)
+    return result
   }
 
   const getEventById = async (id: string) => {
-    const result = await db.query(
-      "SELECT * FROM event WHERE id = $1",
-      [id]
-    )
-
-    return result.rows[0]
+    const result = await db.getOne(TABLE, id)
+    return result
   }
 
   const createEvent = async (data: Event) => {
-    const q =
-      "INSERT INTO event (name, description, date) VALUES ($1, $2, $3) RETURNING id"
+    const result = await db.createOne(TABLE, data)
 
-    const result = await db.query(q, [
-      data.name,
-      data.description,
-      data.date,
-    ])
-
-    return result.rows[0]
+    return { id: result.id }
   }
 
   return {
