@@ -1,8 +1,8 @@
-import { Event } from "./types"
 import { eventsContext } from "./context"
 import { Query } from "express-serve-static-core"
 import { getLimit, getId } from "../../utils/qs"
 import { validateBody } from "../../utils/body"
+import { Request } from "express"
 
 export const EventsController = (
   ctx: ReturnType<typeof eventsContext>
@@ -31,13 +31,11 @@ export const EventsController = (
     }
   }
 
-  const create = async (data: Event) => {
-    validateBody(data)
+  const create = async (body: Request["body"]) => {
+    validateBody(body)
 
-    const newEventToSave = model.toDb(data)
-    const newEvent = await service.createEvent(
-      newEventToSave
-    )
+    const event = model.toDb(body)
+    const newEvent = await service.createEvent(event)
 
     return {
       data: { id: newEvent.id },
